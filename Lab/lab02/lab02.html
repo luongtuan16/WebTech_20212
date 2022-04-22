@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+          crossorigin="anonymous"></script>
+  <script src="lab02.js"></script>
+  <title>A simple form</title>
+
+</head>
+<body>
+<form action="lab02.php" method="post">
+  <label>
+    Enter your name: <input type="text" name="name">
+  </label>
+  <br><br>
+  <label>
+    Enter your class: <input type="text" name="class">
+  </label>
+  <br><br>
+  <label>
+    Enter your university: <input type="text" name="university">
+  </label>
+  <br><br>
+  <div class="hobby_wrapper">
+      Enter your hobbies:<br><br>
+      <input type="checkbox" id="hobby1" name="hobby[]" value="playing sport">
+      <label for="hobby1">playing sport</label>
+      <input type="checkbox" id="hobby2" name="hobby[]" value="playing game">
+    <label for="hobby2">playing game</label>
+      <input type="checkbox" id="hobby3" name="hobby[]" value="watching film">
+    <label for="hobby3">watching film</label><br><br>
+    <button class="add">Add more hobby</button>
+    <br><br>
+  </div>
+  <input type="submit" value="Submit">
+  <br><br>
+</form>
+</body>
+</html>
