@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript Form Validation</title>
+        <style type="text/css">
+            input {
+                width: 250px !important;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form action="" method="post" onsubmit="return on_form_sbmt()">
+            <br /><br />
+            <input
+                type="text"
+                name="full_name"
+                id="id_full_name"
+                placeholder="Full Name"
+                required
+            /><br /><br />
+            <input
+                type="tel"
+                name="phone_no"
+                id="id_phone_no"
+                placeholder="Phone numbers"
+                required
+            /><br /><br />
+            <input
+                type="email"
+                name="email"
+                id="id_email"
+                placeholder="Email Address"
+                required
+            /><br /><br />
+            <div id="txtHint" style="color: orange"></div>
+            <br /><br />
+            <input type="submit" name="form_submit" value="Submit The Form" />
+        </form>
+    </body>
+</html>
