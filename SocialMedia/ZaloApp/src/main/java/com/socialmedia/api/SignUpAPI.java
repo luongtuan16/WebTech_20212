@@ -1,0 +1,99 @@
+package com.socialmedia.api;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.socialmedia.model.AccountModel;
+import com.socialmedia.request.account.SignUpRequest;
+import com.socialmedia.response.account.DataSignUpResponse;
+import com.socialmedia.response.account.SignUpResponse;
+import com.socialmedia.service.IAccountService;
+import com.socialmedia.service.impl.AccountService;
+
+@WebServlet("/api/signup")
+public class SignUpAPI extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	private IAccountService accountService;
+
+	public SignUpAPI() {
+		// TODO Auto-generated constructor stub
+		accountService = new AccountService();
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		Gson gson = new Gson();
+		SignUpResponse signUpResponse = new SignUpResponse();
+		SignUpRequest signUpRequest = gson.fromJson(request.getReader(), SignUpRequest.class);
+		signUpRequest.setUuid("1");
+		try {
+			if (signUpRequest.getPhonenumber() != null && signUpRequest.getPassword() != null
+					&& signUpRequest.getUuid() != null) {
+
+				String phoneNumber = signUpRequest.getPhonenumber();
+				String password = signUpRequest.getPassword();
+				String uuid = signUpRequest.getUuid();
+				signUpRequest.setUuid("1");
+				Pattern p = Pattern.compile("[^A-Za-z0-9]");
+				Matcher m = p.matcher(password);
+				if (phoneNumber.length() > 0 && password.length() > 0 && uuid.length() > 0) {
+			
+					if (!m.find() && phoneNumber.length() == 10 && phoneNumber.charAt(0) == '0'
+							&& password.length() >= 6 && password.length() <= 10
+							&& !phoneNumber.equalsIgnoreCase(password)) {
+						AccountModel accountModel = accountService.signUp(signUpRequest);
+						if (accountModel != null) {
+							signUpResponse.setCode(String.valueOf(BaseHTTP.CODE_1000));
+							signUpResponse.setMessage(BaseHTTP.MESSAGE_1000);
+							DataSignUpResponse dataSignUpResponse = new DataSignUpResponse(accountModel.getId(),
+									accountModel.isDeleted(), accountModel.getCreatedDateLong(),
+									accountModel.getCreatedBy(), accountModel.getModifiedBy(),
+									accountModel.getModifiedDateLong(), accountModel.getName(),
+									accountModel.getPhoneNumber(), accountModel.getAvatar(), accountModel.getUuid());
+							signUpResponse.setData(dataSignUpResponse);
+							response.getWriter().print(gson.toJson(signUpResponse));
+							return;
+						} else {
+							signUpResponse.setCode(String.valueOf(BaseHTTP.CODE_9996));
+							signUpResponse.setMessage(BaseHTTP.MESSAGE_9996);
+						}
+					} else {
+						valueInValid(signUpResponse);
+					}
+
+				} else {
+					valueInValid(signUpResponse);
+				}
+			} else {
+				signUpResponse.setCode(String.valueOf(BaseHTTP.CODE_1002));
+				signUpResponse.setMessage(BaseHTTP.MESSAGE_1002);
+			}
+		} 
+		catch (NullPointerException e) {
+			signUpResponse.setCode(String.valueOf(BaseHTTP.CODE_9994));// 9994
+			signUpResponse.setMessage(BaseHTTP.MESSAGE_9994);
+		}
+		signUpResponse.setData(null);
+		response.getWriter().print(gson.toJson(signUpResponse));
+	}
+
+	public void valueInValid(SignUpResponse signUpResponse) {
+		signUpResponse.setCode(String.valueOf(BaseHTTP.CODE_1004));
+		signUpResponse.setMessage(BaseHTTP.MESSAGE_1004);
+		signUpResponse.setData(null);
+	}
+
+}

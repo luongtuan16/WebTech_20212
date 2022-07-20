@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/socialmedia/api/account/ChangePasswordAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/api/account/SetUserInfoAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/api/block/BlockDiaryAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/api/friend/GetUserFriendsAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/api/post/AddPostAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/api/post/DeletePostAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/api/post/GetListPostAPI.java=UTF-8
+encoding//src/main/java/com/socialmedia/dao/MyGeneric.java=UTF-8
+encoding/database.sql=UTF-8
