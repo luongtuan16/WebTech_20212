@@ -38,15 +38,9 @@ public class SignInAPI extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
-		// Query String
-//		String phoneNumberQuery = request.getParameter("phoneNumber");
-//		String passwordQuery = request.getParameter("password");
 		Gson gson = new Gson();
-		SignInRequest signInRequest = gson.fromJson(request.getReader(), SignInRequest.class); //Body JSON
-//		SignInRequest signInRequest = new SignInRequest();
-//		signInRequest.setPhoneNumber(phoneNumberQuery);
-//		signInRequest.setPassword(passwordQuery);
 		SignInResponse signInResponse = new SignInResponse();
+		SignInRequest signInRequest = gson.fromJson(request.getReader(), SignInRequest.class); //Body JSON
 		if (signInRequest != null) {
 			try {
 				String phoneNumber = signInRequest.getPhonenumber();

@@ -28,7 +28,7 @@ public class ChangePasswordAPI extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
@@ -43,7 +43,7 @@ public class ChangePasswordAPI extends HttpServlet {
 					&& newPasswordQuery.length() <= 10 && checkSimilarPassword(passwordQuery, newPasswordQuery)==false) {
 				if (!passwordQuery.equals(newPasswordQuery)) {
 //					String token = request.getHeader(BaseHTTP.Authorization);
-					String token = request.getParameter("token");
+					String token = (String) request.getAttribute("token");
 					boolean changePassword = accountService.changePassword(token, passwordQuery, newPasswordQuery);
 					if (changePassword) {
 						changePasswordResponse.setCode(String.valueOf(BaseHTTP.CODE_1000));
